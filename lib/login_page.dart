@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'welcome_page.dart';
-
+import 'package:login_ui/sign_up.dart';
+import 'package:login_ui/welcome_page.dart';
+//import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,12 +18,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool passwordObscured = true;
   final formKey = GlobalKey<FormState>();
+
   final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.blueGrey[100],
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -59,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 30,
             ),
             const Padding(
-              padding: EdgeInsets.only(right: 161.0),
+              padding: EdgeInsets.only(right: 156.0),
               child: Text(
                 'Sign In to Continue',
                 style: TextStyle(
@@ -72,13 +76,13 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Form(
-                  key: formKey,
+              child: Form(
+                key: formKey,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -93,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                           Icons.email,
                           color: Colors.deepPurple,
                         )),
-                    validator: (email) =>
+                    validator: (email) =>//*********************************** VALIDATOR FUNCTION ****************************
                         email != null && !EmailValidator.validate(email)
                             ? 'Enter a valid Email'
                             : null,
@@ -155,8 +159,10 @@ class _LoginPageState extends State<LoginPage> {
                 child: FlatButton(
                   onPressed: () {
                     final form = formKey.currentState!;
-                    if (form.validate()) {}
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> WelcomePge()));
+                    if (form.validate()) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> WelcomePge()));
+                    }
+
                   },
                   child: Center(
                     child: Text(
@@ -177,14 +183,20 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Not a member ? '),
-                Text(
-                  'Register now',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                FlatButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> sign_up()));
+                  },
+                  child: Text(
+                    'Register now',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 )
+
               ],
             )
           ],
@@ -204,6 +216,5 @@ class _LoginPageState extends State<LoginPage> {
     "Bonjour",
     "안녕하세요",
     "नमस्कार",
-
   ];
 }
