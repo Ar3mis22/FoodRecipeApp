@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:login_ui/sign_up.dart';
 import 'package:login_ui/welcome_page.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:login_ui/nav_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
  void validate()
  {
    if(formKey.currentState!.validate()){
-     Navigator.push(context, MaterialPageRoute(builder: (context)=> WelcomePge()));
+     Navigator.push(context, MaterialPageRoute(builder: (context)=> Nav_bar()));
    }
    else
      {

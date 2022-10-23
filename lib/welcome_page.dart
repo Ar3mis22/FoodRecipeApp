@@ -12,112 +12,115 @@ class _WelcomePgeState extends State<WelcomePge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomInset: false,
       backgroundColor: Colors.blueGrey[100],
        body:
-        Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.bottomCenter,
-              children: [
-                Container(
-                    margin: EdgeInsets.only(bottom: 126), child: buildCoverImage()),
-                Positioned(top: 250,
-                    child: buildProfileImage()),
-                Container(
-                  child: (Text("César Rincón",style: TextStyle(fontSize: 33,fontWeight: FontWeight.bold,fontFamily: 'Dancingscript'),)),
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(bottom: 126), child: buildCoverImage()),
+                  Positioned(top: 250,
+                      child: buildProfileImage()),
+                  Container(
+                    child: (Text("César Rincón",style: TextStyle(fontSize: 33,fontWeight: FontWeight.bold,fontFamily: 'Dancingscript'),)),
+                  ),
+                ]
+               ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: double.maxFinite,
+                height: 40,
+                //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.grey[300],
                 ),
-              ]
-             ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: double.maxFinite,
-              height: 40,
-              //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.grey[300],
-              ),
-              child: Row(
-                children: [
-                  Padding(padding: EdgeInsets.only(left: 10)),
-                  Icon(Icons.email,color: Colors.deepPurple,),
-                  Text("e-mail: ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 26,
-                  ),
-                  ),
-                  Text("cesarrincon42@gmail.com",style: TextStyle(
-                    fontSize: 20,
-                    fontFamily:'Trajan Pro'
-                  ),)
-                ],
-              ),
-
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: double.maxFinite,
-              height: 40,
-              //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.grey[300],
-              ),
-              child: Row(
-                children: [
-                  Padding(padding: EdgeInsets.only(left: 10)),
-                  Icon(Icons.phone,color: Colors.deepPurple,),
-                  Text("Phone: ",
+                child: Row(
+                  children: [
+                    Padding(padding: EdgeInsets.only(left: 10)),
+                    Icon(Icons.email,color: Colors.deepPurple,),
+                    Text("e-mail: ",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 26,
                     ),
-                  ),
-                  Text("8928463454",style: TextStyle(
-                      fontSize: 20,
-                      fontFamily:'Trajan Pro'
-                  ),)
-                ],
-              ),
-
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: double.maxFinite,
-              height: 40,
-              //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.grey[300],
-              ),
-              child: Row(
-                children: [
-                  Padding(padding: EdgeInsets.only(left: 10)),
-                  Icon(Icons.pets_rounded,color: Colors.deepPurple,),
-                  Text("Favourites: ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26,
                     ),
-                  ),
-                  Text("Dog",style: TextStyle(
+                    Text("cesarrincon42@gmail.com",style: TextStyle(
                       fontSize: 20,
                       fontFamily:'Trajan Pro'
-                  ),)
-                ],
+                    ),)
+                  ],
+                ),
+
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: double.maxFinite,
+                height: 40,
+                //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.grey[300],
+                ),
+                child: Row(
+                  children: [
+                    Padding(padding: EdgeInsets.only(left: 10)),
+                    Icon(Icons.phone,color: Colors.deepPurple,),
+                    Text("Phone: ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                      ),
+                    ),
+                    Text("8928463454",style: TextStyle(
+                        fontSize: 20,
+                        fontFamily:'Trajan Pro'
+                    ),)
+                  ],
+                ),
+
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: double.maxFinite,
+                height: 40,
+                //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.grey[300],
+                ),
+                child: Row(
+                  children: [
+                    Padding(padding: EdgeInsets.only(left: 10)),
+                    Icon(Icons.pets_rounded,color: Colors.deepPurple,),
+                    Text("Favourites: ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                      ),
+                    ),
+                    Text("Dog",style: TextStyle(
+                        fontSize: 20,
+                        fontFamily:'Trajan Pro'
+                    ),)
+                  ],
+                ),
+
               ),
 
-            ),
-
-          ],
+            ],
+          ),
         ),
 
 
