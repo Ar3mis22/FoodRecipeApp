@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:html';
-
+// import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +20,7 @@ class _sign_upState extends State<sign_up> {
   final usernameController = TextEditingController();
   final phoneController = TextEditingController();
   final favouritesController = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();
@@ -30,6 +30,7 @@ class _sign_upState extends State<sign_up> {
     favouritesController.dispose();
     super.dispose();
   }
+
   Future signUp() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: emailController.text.trim(),
@@ -41,21 +42,23 @@ class _sign_upState extends State<sign_up> {
         int.parse(phoneController.text.trim()),
         favouritesController.text.trim());
   }
-  Future addUserDetails(String username,String Email,int phone_no,String favourites) async {
+
+  Future addUserDetails(String username, String Email, int phone_no,
+      String favourites) async {
     var firebaseUser = await FirebaseAuth.instance.currentUser!;
-    await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
-      'username' : username,
+    await FirebaseFirestore.instance.collection('users')
+        .doc(firebaseUser.uid)
+        .set({
+      'username': username,
       'Email': Email,
       'phone_no': phone_no,
-      'favourites':favourites,
-      'uid' : firebaseUser.uid,
+      'favourites': favourites,
+      'uid': firebaseUser.uid,
     });
   }
 
 
-
-
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[100],
@@ -133,7 +136,7 @@ class _sign_upState extends State<sign_up> {
                 border: Border.all(color: Colors.deepPurple),
               ),
               child: TextFormField(
-                 controller: emailController,
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -160,7 +163,7 @@ class _sign_upState extends State<sign_up> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
-                   controller: passwordController,
+                  controller: passwordController,
                   obscureText: true,
                   obscuringCharacter: '*',
                   keyboardType: TextInputType.visiblePassword,
@@ -189,7 +192,7 @@ class _sign_upState extends State<sign_up> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
-                controller: phoneController,
+                  controller: phoneController,
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -216,7 +219,7 @@ class _sign_upState extends State<sign_up> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
-                controller: favouritesController,
+                  controller: favouritesController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -242,8 +245,8 @@ class _sign_upState extends State<sign_up> {
               child: FlatButton(
                 onPressed: () {
                   signUp();
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
-
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
                 },
                 child: Text(
                   'Register',
@@ -258,20 +261,28 @@ class _sign_upState extends State<sign_up> {
       ),
     );
   }
+
   // Future getCurrentUserData() async{
-  //   var userCollection = FirebaseFirestore.instance.collection("user") ;
-  //   try{
-  //     DocumentSnapshot ds = await userCollection.doc(uid)
-  //   }
+  //   var firebaseUser = await FirebaseAuth.instance.currentUser!;
+  //   var userCollection =  await FirebaseFirestore.instance.collection("user") ;
+  //
+  //     DocumentSnapshot ds = await userCollection.doc(firebaseUser.uid).get();
+  //     username = ds.get('username');
+  //     print(username);
+  //
   // }
-  // fetch() async{
-  //   final firebaseUser = await FirebaseAuth.instance.currentUser!;
-  //   if(firebaseUser!=null)
-  //     {
-  //       await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).get().then((ds){
-  //         var myEmail = ds.data('username');
-  //       }
-  //       )
-  //     }
-  // }
+  // String?username;
+  fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser!;
+    if (firebaseUser != null) {
+      await FirebaseFirestore.instance.collection('users')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        username = ds.get('username');
+       }
+      );
+    }
+  }
+  String?username;
 }

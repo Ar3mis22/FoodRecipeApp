@@ -57,7 +57,7 @@ class _WelcomePgeState extends State<WelcomePge> {
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Container(
                       child: (Text(
-                        user.displayName == null ? 'User1' : user
+                        user.displayName == null ? 'Steve Rogers' : user
                             .displayName!,
                         style: TextStyle(fontSize: 33,
                             fontWeight: FontWeight.bold,
@@ -99,6 +99,7 @@ class _WelcomePgeState extends State<WelcomePge> {
             SizedBox(
               height: 20,
             ),
+
             Container(
               width: double.maxFinite,
               height: 40,
@@ -178,4 +179,32 @@ class _WelcomePgeState extends State<WelcomePge> {
         //width: double.infinity,
         //margin: EdgeInsets.only(bottom: 600),
       );
+
+  fetch() async {
+    final firebaseUser = await FirebaseAuth.instance.currentUser!;
+    if (firebaseUser != null) {
+      await FirebaseFirestore.instance.collection('users')
+          .doc(firebaseUser.uid)
+          .get()
+          .then((ds) {
+        username = ds.get('username');
+        print(username);
+      }
+      );
+    }
+  }
+  String?username;
 }
+
+//   Future getCurrentUserData() async{
+//     var firebaseUser = await FirebaseAuth.instance.currentUser!;
+//     var userCollection =  await FirebaseFirestore.instance.collection("user") ;
+//
+//     DocumentSnapshot ds = await userCollection.doc(firebaseUser.uid).get();
+//     username = ds.get('username');
+//     print(username);
+//     return[username];
+//
+//   }
+//   String?username;
+// }
