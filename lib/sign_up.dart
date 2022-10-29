@@ -1,7 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:html';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_ui/login_page.dart';
 
 class sign_up extends StatefulWidget {
   const sign_up({Key? key}) : super(key: key);
@@ -11,7 +16,46 @@ class sign_up extends StatefulWidget {
 }
 
 class _sign_upState extends State<sign_up> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final favouritesController = TextEditingController();
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    usernameController.dispose();
+    phoneController.dispose();
+    favouritesController.dispose();
+    super.dispose();
+  }
+  Future signUp() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+
+    );
+    addUserDetails(usernameController.text.trim(),
+        emailController.text.trim(),
+        int.parse(phoneController.text.trim()),
+        favouritesController.text.trim());
+  }
+  Future addUserDetails(String username,String Email,int phone_no,String favourites) async {
+    var firebaseUser = await FirebaseAuth.instance.currentUser!;
+    await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
+      'username' : username,
+      'Email': Email,
+      'phone_no': phone_no,
+      'favourites':favourites,
+      'uid' : firebaseUser.uid,
+    });
+  }
+
+
+
+
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[100],
@@ -62,6 +106,34 @@ class _sign_upState extends State<sign_up> {
                 border: Border.all(color: Colors.deepPurple),
               ),
               child: TextFormField(
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: ' Username',
+                      hintStyle: TextStyle(
+                        letterSpacing: 2.0,
+                        fontSize: 20,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.person_rounded,
+                        color: Colors.deepPurple,
+                      ))),
+            ),
+          ),
+          // SizedBox(
+          //   height: 120.0,
+          // ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 13.0, 20.0, 0.0),
+            child: Container(
+
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.deepPurple),
+              ),
+              child: TextFormField(
+                 controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -87,7 +159,8 @@ class _sign_upState extends State<sign_up> {
                 border: Border.all(color: Colors.deepPurple),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const TextField(
+              child: TextFormField(
+                   controller: passwordController,
                   obscureText: true,
                   obscuringCharacter: '*',
                   keyboardType: TextInputType.visiblePassword,
@@ -116,6 +189,7 @@ class _sign_upState extends State<sign_up> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
+                controller: phoneController,
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -142,6 +216,7 @@ class _sign_upState extends State<sign_up> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
+                controller: favouritesController,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -165,7 +240,11 @@ class _sign_upState extends State<sign_up> {
                   color: Colors.deepPurple,
                   borderRadius: BorderRadius.circular(12.0)),
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  signUp();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
+
+                },
                 child: Text(
                   'Register',
                   style: TextStyle(
@@ -179,4 +258,20 @@ class _sign_upState extends State<sign_up> {
       ),
     );
   }
+  // Future getCurrentUserData() async{
+  //   var userCollection = FirebaseFirestore.instance.collection("user") ;
+  //   try{
+  //     DocumentSnapshot ds = await userCollection.doc(uid)
+  //   }
+  // }
+  // fetch() async{
+  //   final firebaseUser = await FirebaseAuth.instance.currentUser!;
+  //   if(firebaseUser!=null)
+  //     {
+  //       await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).get().then((ds){
+  //         var myEmail = ds.data('username');
+  //       }
+  //       )
+  //     }
+  // }
 }

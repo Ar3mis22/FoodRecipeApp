@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/cousines.dart';
-import 'package:login_ui/favourites.dart';
-import 'package:login_ui/home_pg.dart';
-import 'package:login_ui/welcome_page.dart';
-import 'package:login_ui/nav_bar.dart';
+import 'package:login_ui/BottomNav/cousines.dart';
+import 'package:login_ui/BottomNav/favourites.dart';
+import 'package:login_ui/BottomNav/home_pg.dart';
+import 'package:login_ui/BottomNav/welcome_page.dart';
+import 'package:login_ui/BottomNav/nav_bar.dart';
 
 class Nav_bar extends StatefulWidget {
   const Nav_bar({Key? key}) : super(key: key);
@@ -30,6 +30,7 @@ class _Nav_barState extends State<Nav_bar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
 
       // appBar: AppBar(
       //   backgroundColor: Colors.deepPurple,
@@ -41,7 +42,7 @@ class _Nav_barState extends State<Nav_bar> {
       // ),
       body: _WidgetOptions.elementAt(selectedindex),
       bottomNavigationBar: Container(
-        color: Colors.deepPurple.shade100,
+        color: Colors.deepPurple.shade50,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
             child:  NavigationBarTheme(
@@ -54,7 +55,7 @@ class _Nav_barState extends State<Nav_bar> {
               ),
               child: NavigationBar(
                 height: 30,
-                backgroundColor: Colors.deepPurple[100],
+                backgroundColor: Colors.deepPurple[50],
                 selectedIndex: selectedindex,
                 onDestinationSelected: onItemTap,
                 destinations: [
