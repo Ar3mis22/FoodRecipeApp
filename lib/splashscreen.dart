@@ -26,7 +26,7 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.black87,
         body: Center(
           child: Column(
             children: [
@@ -35,7 +35,7 @@ class _SplashState extends State<Splash> {
                   'https://assets8.lottiefiles.com/temp/lf20_nXwOJj.json'),
               Text('Foodies',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.deepOrangeAccent,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Dancingscript',
                   fontSize: 75,

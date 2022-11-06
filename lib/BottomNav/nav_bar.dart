@@ -17,7 +17,7 @@ class _Nav_barState extends State<Nav_bar> {
   int selectedindex=0;
   List<Widget> _WidgetOptions = <Widget>
   [
-    Home_page(),
+    home_pg(),
     Favourites(),
     Cousines(),
     WelcomePge(),
@@ -42,27 +42,27 @@ class _Nav_barState extends State<Nav_bar> {
       // ),
       body: _WidgetOptions.elementAt(selectedindex),
       bottomNavigationBar: Container(
-        color: Colors.deepPurple.shade50,
+        color: Colors.black,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
             child:  NavigationBarTheme(
               data: NavigationBarThemeData(
-                  indicatorColor: Colors.white70,
+                  indicatorColor: Colors.white,
                   height: 10.0,
                   labelTextStyle: MaterialStateProperty.all(
-                    TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
+                    TextStyle(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white),
                   )
               ),
               child: NavigationBar(
                 height: 30,
-                backgroundColor: Colors.deepPurple[50],
+                backgroundColor: Colors.black87,
                 selectedIndex: selectedindex,
                 onDestinationSelected: onItemTap,
                 destinations: [
-                  NavigationDestination(icon: Icon(Icons.home_filled,color: Colors.deepPurple,), label: 'Home',),
-                  NavigationDestination(icon: Icon(Icons.favorite_rounded,color: Colors.deepPurple,), label: 'Favourites'),
-                  NavigationDestination(icon: Icon(Icons.fastfood_rounded,color: Colors.deepPurple,), label: 'Cousines'),
-                  NavigationDestination(icon: Icon(Icons.person_rounded,color: Colors.deepPurple,), label: 'Profile'),
+                  NavigationDestination(icon: Icon(Icons.home_filled,color: Colors.deepOrangeAccent,), label: 'Home',),
+                  NavigationDestination(icon: Icon(Icons.favorite_rounded,color: Colors.deepOrangeAccent,), label: 'Favourites'),
+                  NavigationDestination(icon: Icon(Icons.fastfood_rounded,color: Colors.deepOrangeAccent,), label: 'Cousines'),
+                  NavigationDestination(icon: Icon(Icons.person_rounded,color: Colors.deepOrangeAccent,), label: 'Profile'),
                 ],
 
 

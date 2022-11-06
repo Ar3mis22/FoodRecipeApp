@@ -61,14 +61,14 @@ class _sign_upState extends State<sign_up> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[100],
+      backgroundColor: Colors.black12,
       appBar: AppBar(
         title: Text(
           'Register Yourself',
           style: TextStyle(color: Colors.white),
         ),
         shadowColor: Colors.black,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.deepOrangeAccent,
       ),
       body: SingleChildScrollView(
         child: Column(children: [
@@ -77,7 +77,7 @@ class _sign_upState extends State<sign_up> {
             child: const Text(
               'Welcome to the',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 62.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -89,7 +89,7 @@ class _sign_upState extends State<sign_up> {
               child: const Text(
                 'Family!',
                 style: TextStyle(
-                  color: Colors.deepPurple,
+                  color: Colors.deepOrangeAccent,
                   fontSize: 62.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -106,7 +106,7 @@ class _sign_upState extends State<sign_up> {
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.deepPurple),
+                border: Border.all(color: Colors.deepOrangeAccent),
               ),
               child: TextFormField(
                   controller: usernameController,
@@ -119,7 +119,7 @@ class _sign_upState extends State<sign_up> {
                       ),
                       prefixIcon: Icon(
                         Icons.person_rounded,
-                        color: Colors.deepPurple,
+                        color: Colors.deepOrangeAccent,
                       ))),
             ),
           ),
@@ -133,7 +133,7 @@ class _sign_upState extends State<sign_up> {
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.deepPurple),
+                border: Border.all(color: Colors.deepOrangeAccent),
               ),
               child: TextFormField(
                   controller: emailController,
@@ -147,7 +147,7 @@ class _sign_upState extends State<sign_up> {
                       ),
                       prefixIcon: Icon(
                         Icons.email,
-                        color: Colors.deepPurple,
+                        color: Colors.deepOrangeAccent,
                       ))),
             ),
           ),
@@ -159,7 +159,7 @@ class _sign_upState extends State<sign_up> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey[200],
-                border: Border.all(color: Colors.deepPurple),
+                border: Border.all(color: Colors.deepOrangeAccent),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
@@ -176,7 +176,7 @@ class _sign_upState extends State<sign_up> {
                       ),
                       prefixIcon: Icon(
                         Icons.lock_outline_sharp,
-                        color: Colors.deepPurple,
+                        color: Colors.deepOrangeAccent,
                       ))),
             ),
           ),
@@ -188,7 +188,7 @@ class _sign_upState extends State<sign_up> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey[200],
-                border: Border.all(color: Colors.deepPurple),
+                border: Border.all(color: Colors.deepOrangeAccent),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
@@ -203,7 +203,7 @@ class _sign_upState extends State<sign_up> {
                       ),
                       prefixIcon: Icon(
                         Icons.phone,
-                        color: Colors.deepPurple,
+                        color: Colors.deepOrangeAccent,
                       ))),
             ),
           ),
@@ -215,7 +215,7 @@ class _sign_upState extends State<sign_up> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey[200],
-                border: Border.all(color: Colors.deepPurple),
+                border: Border.all(color: Colors.deepOrangeAccent),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextFormField(
@@ -230,7 +230,7 @@ class _sign_upState extends State<sign_up> {
                       ),
                       prefixIcon: Icon(
                         Icons.pets_rounded,
-                        color: Colors.deepPurple,
+                        color: Colors.deepOrangeAccent,
                       ))),
             ),
           ),
@@ -240,7 +240,7 @@ class _sign_upState extends State<sign_up> {
               height: 40,
               width: 500,
               decoration: BoxDecoration(
-                  color: Colors.deepPurple,
+                  color: Colors.deepOrangeAccent,
                   borderRadius: BorderRadius.circular(12.0)),
               child: FlatButton(
                 onPressed: () {
@@ -272,17 +272,17 @@ class _sign_upState extends State<sign_up> {
   //
   // }
   // String?username;
-  fetch() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser!;
-    if (firebaseUser != null) {
-      await FirebaseFirestore.instance.collection('users')
-          .doc(firebaseUser.uid)
-          .get()
-          .then((ds) {
-        username = ds.get('username');
-       }
-      );
-    }
-  }
-  String?username;
+  // fetch() async {
+  //   final firebaseUser = await FirebaseAuth.instance.currentUser!;
+  //   if (firebaseUser != null) {
+  //     await FirebaseFirestore.instance.collection('users')
+  //         .doc(firebaseUser.uid)
+  //         .get()
+  //         .then((ds) {
+  //       username = ds.get('username');
+  //      }
+  //     );
+  //   }
+  // }
+  // String?username;
 }

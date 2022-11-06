@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../Username.dart';
 
@@ -20,7 +21,7 @@ class _WelcomePgeState extends State<WelcomePge> {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       //resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.blueGrey[100],
+      backgroundColor: Colors.black26,
       body:
       SingleChildScrollView(
         child: Column(
@@ -30,20 +31,20 @@ class _WelcomePgeState extends State<WelcomePge> {
                 alignment: Alignment.bottomCenter,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(bottom: 126),
+                      margin: EdgeInsets.only(bottom: 135),
                       child: buildCoverImage()),
-                  Positioned(top: 230,
+                  Positioned(top: 295,
                       child:
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                              width: 4, color: Colors.deepPurple),
+                              width: 4, color: Colors.deepOrangeAccent),
                           shape: BoxShape.circle,
 
                         ),
 
                         child: CircleAvatar(
-                          radius: 144,
+                          radius: 130,
                           backgroundImage: user.photoURL == null ? NetworkImage(
                               "https://image.shutterstock.com/image-vector/person-icon-260nw-282598823.jpg",
                               scale: 40) as ImageProvider
@@ -70,6 +71,7 @@ class _WelcomePgeState extends State<WelcomePge> {
             ),
 
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
               width: double.maxFinite,
               height: 40,
               //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
@@ -80,16 +82,17 @@ class _WelcomePgeState extends State<WelcomePge> {
               child: Row(
                 children: [
                   Padding(padding: EdgeInsets.only(left: 10)),
-                  Icon(Icons.email, color: Colors.deepPurple,),
-                  Text("e-mail: ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26,
-                    ),
-                  ),
+                  Icon(Icons.email, color: Colors.deepOrangeAccent,size: 30,),
+                  // Text("e-mail: ",
+                  //   style: TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 26,
+                  //   ),
+                  // ),
+                  SizedBox(width: 10,),
                   Text(user.email == null ? 'user1@gmail.com' : user.email!,
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 19,
                         fontFamily: 'Trajan Pro'
                     ),)
                 ],
@@ -101,6 +104,7 @@ class _WelcomePgeState extends State<WelcomePge> {
             ),
 
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
               width: double.maxFinite,
               height: 40,
               //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
@@ -111,15 +115,16 @@ class _WelcomePgeState extends State<WelcomePge> {
               child: Row(
                 children: [
                   Padding(padding: EdgeInsets.only(left: 10)),
-                  Icon(Icons.phone, color: Colors.deepPurple,),
-                  Text("Phone: ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26,
-                    ),
-                  ),
+                  Icon(Icons.phone, color: Colors.deepOrangeAccent,size: 30,),
+                  // Text("Phone: ",
+                  //   style: TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 26,
+                  //   ),
+                  // ),
+                  SizedBox(width: 10,),
                   Text("8928463454", style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 19,
                       fontFamily: 'Trajan Pro'
                   ),)
                 ],
@@ -130,6 +135,7 @@ class _WelcomePgeState extends State<WelcomePge> {
               height: 20,
             ),
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
               width: double.maxFinite,
               height: 40,
               //child: Padding(padding: EdgeInsets.fromLTRB(10,0,10,0)),
@@ -140,15 +146,17 @@ class _WelcomePgeState extends State<WelcomePge> {
               child: Row(
                 children: [
                   Padding(padding: EdgeInsets.only(left: 10)),
-                  Icon(Icons.pets_rounded, color: Colors.deepPurple,),
-                  Text("Favourites: ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26,
-                    ),
-                  ),
-                  Text("Dog", style: TextStyle(
-                      fontSize: 20,
+                  //Icon(Icons.pets_rounded, color: Colors.deepPurple,),
+                  Icon(FontAwesomeIcons.bowlFood,color: Colors.deepOrangeAccent,),
+                  // Text("Favourites: ",
+                  //   style: TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 26,
+                  //   ),
+                  // ),
+                  SizedBox(width: 10,),
+                  Text("Noodles", style: TextStyle(
+                      fontSize: 19,
                       fontFamily: 'Trajan Pro'
                   ),)
                 ],
@@ -170,10 +178,10 @@ class _WelcomePgeState extends State<WelcomePge> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(bottomLeft: Radius.zero)
         ),
-        child: Image.asset(
-          'background.jpg',
+        child: Image.network(
+          'https://previews.123rf.com/images/julia8931/julia89311911/julia8931191100026/137793969-hand-drawn-doodle-food-and-kitchen-utensils-seamless-pattern-on-black-background-vector-illustration.jpg',
           fit: BoxFit.cover,
-          height: 450,
+          height: 475,
         ),
 
         //width: double.infinity,
@@ -181,7 +189,7 @@ class _WelcomePgeState extends State<WelcomePge> {
       );
 
   fetch() async {
-    final firebaseUser = await FirebaseAuth.instance.currentUser!;
+    final firebaseUser = await FirebaseAuth.instance.currentUser;
     if (firebaseUser != null) {
       await FirebaseFirestore.instance.collection('users')
           .doc(firebaseUser.uid)
