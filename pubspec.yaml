@@ -48,6 +48,7 @@ dependencies:
   cached_network_image:
   lottie:
   http: 0.13.5
+  flutter_neumorphic: ^3.2.0
 
 dev_dependencies:
   flutter_test:

@@ -42,7 +42,7 @@ class _Nav_barState extends State<Nav_bar> {
       // ),
       body: _WidgetOptions.elementAt(selectedindex),
       bottomNavigationBar: Container(
-        color: Colors.black,
+        color: Colors.grey.shade900,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
             child:  NavigationBarTheme(
@@ -55,7 +55,7 @@ class _Nav_barState extends State<Nav_bar> {
               ),
               child: NavigationBar(
                 height: 30,
-                backgroundColor: Colors.black87,
+                backgroundColor: Colors.grey.shade900,
                 selectedIndex: selectedindex,
                 onDestinationSelected: onItemTap,
                 destinations: [

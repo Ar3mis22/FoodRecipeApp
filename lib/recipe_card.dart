@@ -1,17 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class RecipeCard extends StatelessWidget {
+class RecipeCard extends StatefulWidget {
   final String title;
-  final String servings;
-  final String cookTime;
-  final String thumbnailUrl;
+  final int servings;
+  final String image;
+  final int time;
   RecipeCard({
     required this.title,
-    required this.cookTime,
+    required this.image,
     required this.servings,
-    required this.thumbnailUrl,
+    required this.time,
   });
+
+  @override
+  State<RecipeCard> createState() => _RecipeCardState();
+}
+
+class _RecipeCardState extends State<RecipeCard> {
+  bool liked = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +33,7 @@ class RecipeCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black,
             offset: Offset(
               0.0,
               10.0,
@@ -38,27 +47,53 @@ class RecipeCard extends StatelessWidget {
             Colors.black.withOpacity(0.35),
             BlendMode.multiply,
           ),
-          image: NetworkImage(thumbnailUrl),
+          image: NetworkImage(widget.image),
           fit: BoxFit.cover,
         ),
       ),
       child: Stack(
         children: [
-          // Align(
-          //   child: Padding(
-          //     padding: EdgeInsets.symmetric(horizontal: 5.0),
-          //     child: Text(
-          //       title,
-          //       style: TextStyle(
-          //         fontSize: 19,
-          //       ),
-          //       overflow: TextOverflow.ellipsis,
-          //       maxLines: 2,
-          //       textAlign: TextAlign.center,
-          //     ),
-          //   ),
-          //   alignment: Alignment.center,
-          // ),
+
+           // padding: const EdgeInsets.symmetric(horizontal: 330.0,vertical: 5),
+             Positioned(
+               top: 10,
+                right: 10,
+                child: InkWell(
+              child:
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      liked=!liked;
+                    });
+                  } ,
+                  child: Icon(
+                   liked ? FontAwesomeIcons.solidHeart  : FontAwesomeIcons.heart,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+
+                )
+
+            )),
+
+          Align(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'DancingScript',
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            alignment: Alignment.center,
+          ),
           Align(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,11 +109,11 @@ class RecipeCard extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.people,
-                        color: Colors.yellow,
+                        color: Colors.white,
                         size: 18,
                       ),
                       SizedBox(width: 7),
-                      Text(servings,style: TextStyle(color: Colors.white),),
+                      Text(widget.servings.toString(),style: TextStyle(color: Colors.white),),
                     ],
                   ),
                 ),
@@ -93,14 +128,14 @@ class RecipeCard extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.schedule,
-                        color: Colors.yellow,
+                        color: Colors.white,
                         size: 18,
                       ),
                       SizedBox(width: 7),
-                      Text(cookTime,style: TextStyle(color: Colors.white),),
+                      Text(widget.time.toString(),style: TextStyle(color: Colors.white),),
                     ],
                   ),
-                  
+
                 )
               ],
             ),

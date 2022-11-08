@@ -5,11 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:http/http.dart';
-import 'package:login_ui/recipeApi.dart';
+import 'package:login_ui/ApiServices.dart';
+//import 'package:login_ui/recipeApi.dart';
 import 'package:provider/provider.dart';
 import '../RecipeModel.dart';
 import '../SideBar/contact_us.dart';
 import '../SideBar/setting.dart';
+import '../constants.dart';
 import '../google_sign_in.dart';
 import '../login_page.dart';
 import '../recipe_card.dart';
@@ -25,56 +27,25 @@ class home_pg extends StatefulWidget {
 class _home_pgState extends State<home_pg> {
 
 
-  late List<RecipeModel> _recipes;
+
   bool isLoading = true;
+  List<Recipes>? _recipesList;
+
+  getRecipeData() async
+  {
+    _recipesList = await ApiServices().getData();
+    print(_recipesList!.length);
+  }
+
 
 
   @override
   void initState() {
-    getRecipes();
+    getRecipeData();
     super.initState();
   }
-  
-  Future <void>getRecipes() async
-  {
-    _recipes = await recipeApi.getRecipe();
-    setState(() {
-      isLoading=false;
-    });
-    print(_recipes);
-    // data['recipes'].forEach((element){
-    //   RecipeModel recipeModel = new RecipeModel(title: null, readyInMinutes: null, servings: null, image: null);
-    //   recipeModel = RecipeModel.fromMap(element['recipes']);
-    //   recipeList.add(recipeModel);
-    //   log(recipeList.toString());
-    // });
 
-    // var responseBody;
-    // String apiKey ="72dd6b8e4762414c997e61949e47d969";
-    // String baseUrl= "https://api.spoonacular.com/recipes/random";
-    // String Url = "$baseUrl/information?apiKey=$apiKey&random?number=5&tags=vegeterian,dessert";
-    // http.Response response = await http.get(Uri.parse(Url));
-    // try
-    //     {
-    //       if(response.statusCode == 200)
-    //         {
-    //           responseBody = jsonDecode(response.body);
-    //         }
-    //       else
-    //         {
-    //           print(response.statusCode);
-    //         }
-    //       return responseBody;
-    //     }
-    //     catch(e)
-    // {
-    //   print(e);
-    // }
-    // recipeList.forEach((Recipe) {
-    //   print(Recipe.title);
-    // });
-   // log(data.toString());
-  }
+
 
 
   @override
@@ -161,10 +132,115 @@ class _home_pgState extends State<home_pg> {
             ),
           ),
         ),
-        body: RecipeCard(title: 'My recipe', cookTime: '120 mins', servings: '2', thumbnailUrl: 'https://lh3.googleusercontent.com/ei5eF1LRFkkcekhjdR_8XgOqgdjpomf-rda_vvh7jIauCgLlEWORINSKMRR6I6iTcxxZL9riJwFqKMvK0ixS0xwnRHGMY4I5Zw=s360',),
+        body: SafeArea(
+          child: FutureBuilder(
+            future: getRecipeData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "Recipes",
+                      style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _recipesList!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Recipes recipe = _recipesList![index];
+                        return RecipeCard(
+                          title: recipe.title!,
+                          image: recipe.image!,
+                          servings: recipe.servings,
+                          time: recipe.readyInMinutes,
+                          //time: recipe.title!,
+
+                        );
+                      },
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
+        ),
     );
   }
-  }
+}
+
+// class RecipeWidget extends StatelessWidget {
+//   final String title;
+//   final String image;
+//   final int? servings;
+//   final int? time;
+//   const RecipeWidget(
+//       {Key? key,
+//         required this.title,
+//         required this.image,
+//         required this.servings,
+//         required this.time})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return NeuBox(
+//       margin: EdgeInsets.all(15),
+//       child: Row(
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.all(15.0),
+//             child: ClipRRect(
+//                 borderRadius: BorderRadius.circular(15),
+//                 child: Image.network(
+//                   image,
+//                   height: 115,
+//                   width: 125,
+//                   fit: BoxFit.cover,
+//                 )),
+//           ),
+//           Expanded(
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//
+//                   Text(
+//                     title,
+//                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Colors.black),
+//                   ),
+//                   SizedBox(height: 5,),
+//
+//                   Row(
+//                     children: [
+//                       Text("Servings:"),
+//                       Text(
+//                         servings.toString(),
+//                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Colors.black),
+//                       ),
+//                     ],
+//                   ),
+//                   Text(
+//                     time.toString(),
+//                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700,color: Colors.black),
+//                   ),
+//
+//                 ],
+//               ))
+//         ],
+//       ),
+//     );
+//   }
+// }
+
   
 
 
