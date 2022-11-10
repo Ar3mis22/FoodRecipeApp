@@ -64,6 +64,7 @@ class _RecipeCardState extends State<RecipeCard> {
                   onTap: (){
                     setState(() {
                       liked=!liked;
+
                     });
                   } ,
                   child: Icon(

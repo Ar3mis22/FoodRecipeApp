@@ -27,4 +27,4 @@ class NeuBox extends StatelessWidget {
   }
 }
 
-const apiKey="72dd6b8e4762414c997e61949e47d969";
+const apiKey="c08d42a1b0084d15b5e4c9fdb408351c";

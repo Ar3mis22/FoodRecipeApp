@@ -9,11 +9,11 @@ class ApiServices {
   String? imgUrl;
   bool? isVeg;
   RecipeModel? recipeModel;
-  List<Recipes>? _recipesList;
+  List<Recipes> _recipesList= [];
 
-  getData() async {
+  getData(String? query) async {
     var responseBody;
-    var url = "https://api.spoonacular.com/recipes/random?apiKey=fb4aeadf96fb47c593c095370bc79c17&number=50";
+    var url = "https://api.spoonacular.com/recipes/random?apiKey=c08d42a1b0084d15b5e4c9fdb408351c&number=50";
     http.Response response = await http.get(Uri.parse(url));
 
     try {
@@ -28,6 +28,10 @@ class ApiServices {
         // debugPrint(isVeg.toString());
         var recipesMain = RecipeModel.fromJson(responseBody);
         _recipesList = recipesMain.recipes;
+        if(query != null)
+          {
+            _recipesList = _recipesList!.where((element) => element.title!.toLowerCase().contains(query.toLowerCase())).toList();
+          }
       } else {
         print(response.statusCode);
       }

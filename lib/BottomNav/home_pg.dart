@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:http/http.dart';
 import 'package:login_ui/ApiServices.dart';
+import 'package:login_ui/SearchRecipes.dart';
 //import 'package:login_ui/recipeApi.dart';
 import 'package:provider/provider.dart';
 import '../RecipeModel.dart';
@@ -27,13 +28,13 @@ class home_pg extends StatefulWidget {
 class _home_pgState extends State<home_pg> {
 
 
-
+  String?query;
   bool isLoading = true;
   List<Recipes>? _recipesList;
 
   getRecipeData() async
   {
-    _recipesList = await ApiServices().getData();
+    _recipesList = await ApiServices().getData(query);
     print(_recipesList!.length);
   }
 
@@ -131,6 +132,12 @@ class _home_pgState extends State<home_pg> {
               color: Colors.white,
             ),
           ),
+          actions: [
+            IconButton(onPressed: (){
+              showSearch(context: context, delegate: SearchRecipes());
+            },
+                icon: Icon(Icons.search_rounded))
+          ],
         ),
         body: SafeArea(
           child: FutureBuilder(
