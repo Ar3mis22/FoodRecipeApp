@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:login_ui/wishlist_provider.dart';
+import 'package:provider/provider.dart';
+
+import 'RecipeModel.dart';
 
 class RecipeCard extends StatefulWidget {
   final String title;
@@ -20,9 +24,12 @@ class RecipeCard extends StatefulWidget {
 
 class _RecipeCardState extends State<RecipeCard> {
   bool liked = false;
+  List<Recipes>? _recipesList;
+
 
   @override
   Widget build(BuildContext context) {
+    Wishlist_provider wishlist_provider = Provider.of(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
       width: MediaQuery.of(context).size.width,
@@ -64,8 +71,18 @@ class _RecipeCardState extends State<RecipeCard> {
                   onTap: (){
                     setState(() {
                       liked=!liked;
-
                     });
+                    if(liked == true)
+                      {
+                        wishlist_provider.addWishlistData(
+                          wishlistservings: widget.servings,
+                          wishlisttime:  widget.time,
+                          wishlistimage: widget.image,
+                          wishlisttitle: widget.title,
+
+                        );
+
+                      }
                   } ,
                   child: Icon(
                    liked ? FontAwesomeIcons.solidHeart  : FontAwesomeIcons.heart,
@@ -134,6 +151,8 @@ class _RecipeCardState extends State<RecipeCard> {
                       ),
                       SizedBox(width: 7),
                       Text(widget.time.toString(),style: TextStyle(color: Colors.white),),
+                      SizedBox(width: 3),
+                      Text('min',style: TextStyle(color: Colors.white),)
                     ],
                   ),
 

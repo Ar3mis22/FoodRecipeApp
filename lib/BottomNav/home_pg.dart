@@ -5,17 +5,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:http/http.dart';
-import 'package:login_ui/ApiServices.dart';
-import 'package:login_ui/SearchRecipes.dart';
+import 'package:login_ui/api/ApiServices.dart';
+import 'package:login_ui/models/SearchRecipes.dart';
 //import 'package:login_ui/recipeApi.dart';
 import 'package:provider/provider.dart';
-import '../RecipeModel.dart';
+import '../models/RecipeModel.dart';
 import '../SideBar/contact_us.dart';
 import '../SideBar/setting.dart';
-import '../constants.dart';
-import '../google_sign_in.dart';
-import '../login_page.dart';
-import '../recipe_card.dart';
+import '../api/constants.dart';
+import '../Sign-in/google_sign_in.dart';
+import '../Sign-in/login_page.dart';
+import '../models/recipe_card.dart';
 
 
 class home_pg extends StatefulWidget {

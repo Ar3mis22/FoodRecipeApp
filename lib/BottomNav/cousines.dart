@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../SideBar/contact_us.dart';
 import '../SideBar/setting.dart';
-import '../google_sign_in.dart';
-import '../login_page.dart';
+import '../Sign-in/google_sign_in.dart';
+import '../Sign-in/login_page.dart';
 
 class Cousines extends StatelessWidget {
   const Cousines({Key? key}) : super(key: key);

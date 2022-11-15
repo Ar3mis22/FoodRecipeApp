@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:login_ui/google_sign_in.dart';
-import 'package:login_ui/main_page.dart';
-import 'package:login_ui/splashscreen.dart';
+import 'package:login_ui/Sign-in/google_sign_in.dart';
+import 'package:login_ui/Sign-in/main_page.dart';
+import 'package:login_ui/UI/splashscreen.dart';
+import 'package:login_ui/wishlist_provider.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'login_page.dart';
+import 'Sign-in/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lottie/lottie.dart';
 Future main() async{
@@ -19,8 +20,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => GoogleSignInProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GoogleSignInProvider>(
+        create: (context) => GoogleSignInProvider(),
+        ),
+        ChangeNotifierProvider<Wishlist_provider>(
+            create: (context) => Wishlist_provider()
+        )
+      ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
         theme: ThemeData(

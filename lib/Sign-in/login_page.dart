@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/BottomNav/home_pg.dart';
-import 'package:login_ui/google_sign_in.dart';
-import 'package:login_ui/main_page.dart';
-import 'package:login_ui/sign_up.dart';
+import 'package:login_ui/Sign-in/google_sign_in.dart';
+import 'package:login_ui/Sign-in/main_page.dart';
+import 'package:login_ui/UI/sign_up.dart';
 import 'package:login_ui/BottomNav/welcome_page.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:login_ui/BottomNav/nav_bar.dart';
@@ -55,9 +55,9 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage("https://i.pinimg.com/564x/2a/c2/1e/2ac21e7091f0131084d857d10565406e.jpg",),
+          image: NetworkImage("https://images.unsplash.com/photo-1634310486412-dd19449dfcb7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJvY2tldCUyMHNhbGFkfGVufDB8fDB8fA%3D%3D&w=1000&q=80",),
           colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.9), BlendMode.modulate,),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(

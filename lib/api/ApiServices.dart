@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'RecipeModel.dart';
+import '../models/RecipeModel.dart';
 
 class ApiServices {
 
@@ -13,7 +13,7 @@ class ApiServices {
 
   getData(String? query) async {
     var responseBody;
-    var url = "https://api.spoonacular.com/recipes/random?apiKey=c08d42a1b0084d15b5e4c9fdb408351c&number=50";
+    var url = "https://api.spoonacular.com/recipes/random?apiKey=c08d42a1b0084d15b5e4c9fdb408351c&number=5";
     http.Response response = await http.get(Uri.parse(url));
 
     try {

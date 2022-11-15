@@ -1,17 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_ui/models/RecipeModel.dart';
+import 'package:login_ui/models/wishlistmodel.dart';
+import 'package:login_ui/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../SideBar/contact_us.dart';
 import '../SideBar/setting.dart';
-import '../google_sign_in.dart';
-import '../login_page.dart';
+import '../Sign-in/google_sign_in.dart';
+import '../Sign-in/login_page.dart';
+import '../models/recipe_card.dart';
 
-class Favourites extends StatelessWidget {
+class Favourites extends StatefulWidget {
   const Favourites({Key? key}) : super(key: key);
 
   @override
+  State<Favourites> createState() => _FavouritesState();
+}
+
+class _FavouritesState extends State<Favourites> {
+  late Wishlist_provider wishlist_provider;
+  @override
   Widget build(BuildContext context) {
+    wishlist_provider = Provider.of(context);
+    wishlist_provider.getWishlistData();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepOrangeAccent,
@@ -92,6 +104,47 @@ class Favourites extends StatelessWidget {
               )
             ],
           ),
+        ),
+      ),
+       body:
+      SafeArea(
+        child: FutureBuilder(
+          future: wishlist_provider.getWishlistData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text(
+                    "Recipes",
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: wishlist_provider.getWishlist.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      WishlistModel data = wishlist_provider.getWishlist[index]  ;
+                      return RecipeCard(
+                        title: data.wishlisttitle,
+                        image: data.wishlistimage,
+                        servings: data.wishlistservings,
+                        time: data.wishlisttime,
+                      );
+                    },
+                  ),
+                )
+              ],
+            );
+          },
         ),
       ),
 

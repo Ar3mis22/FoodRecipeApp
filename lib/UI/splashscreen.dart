@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/login_page.dart';
+import 'package:login_ui/Sign-in/login_page.dart';
 import 'package:lottie/lottie.dart';
 
 class Splash extends StatefulWidget {

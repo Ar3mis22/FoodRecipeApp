@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login_ui/recipe_card.dart';
+import 'package:login_ui/models/recipe_card.dart';
 
-import 'ApiServices.dart';
+import '../api/ApiServices.dart';
 import 'RecipeModel.dart';
 
 class SearchRecipes extends SearchDelegate{
@@ -26,7 +26,8 @@ class SearchRecipes extends SearchDelegate{
 
   @override
   Widget buildResults(BuildContext context) {
-    return SafeArea(
+    return
+      SafeArea(
       child: FutureBuilder(
         future: getRecipeData(query:query),
         builder: (context, snapshot) {
@@ -72,7 +73,63 @@ class SearchRecipes extends SearchDelegate{
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Center(child: Text('Search Your Favourite Recipes'),);
+
+    return
+      SafeArea(
+
+      child: FutureBuilder(
+        future: getRecipeData(query:query),
+        builder: (context, snapshot) {
+          if(query.isEmpty){
+            return Center(
+                child: Text("Search Recipes",
+                  style: TextStyle(
+                      color: Colors.deepOrangeAccent,fontSize: 26),));
+          }
+           if(snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          // if(snapshot.data==null){
+          //   return Center(
+          //       child: Text("No recipes found",
+          //         style: TextStyle(
+          //             color: Colors.deepOrangeAccent,fontSize: 26),));
+          // }
+           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  "Recipes",
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _recipesList!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Recipes recipe = _recipesList![index];
+                    return RecipeCard(
+                      title: recipe.title!,
+                      image: recipe.image!,
+                      servings: recipe.servings,
+                      time: recipe.readyInMinutes,
+                      //time: recipe.title!,
+
+                    );
+                  },
+                ),
+              )
+            ],
+          );
+        },
+      ),
+    );
   }
 
   getRecipeData({required String? query}) async {
