@@ -58,6 +58,8 @@ class SearchRecipes extends SearchDelegate{
                       image: recipe.image!,
                       servings: recipe.servings,
                       time: recipe.readyInMinutes,
+                      c: 0,
+                      docId: '',
                       //time: recipe.title!,
 
                     );
@@ -119,6 +121,8 @@ class SearchRecipes extends SearchDelegate{
                       image: recipe.image!,
                       servings: recipe.servings,
                       time: recipe.readyInMinutes,
+                      c: 0,
+                      docId: '',
                       //time: recipe.title!,
 
                     );

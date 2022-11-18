@@ -1,43 +1,48 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'Favs.dart';
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:login_ui/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../Favs.dart';
-import 'RecipeModel.dart';
+//import 'RecipeModel.dart';
+import 'Favs.dart';
+import 'models/RecipeModel.dart';
 
-class RecipeCard extends StatefulWidget {
-  final String title;
-  final int servings;
-  final String image;
-  final int time;
-  late final String docId;
-  int c;
-  RecipeCard({
+class FavRecipeCard extends StatelessWidget {
+   String title;
+   int servings;
+   String image;
+   int time;
+   String docId;
+   int c;
+  FavRecipeCard({
     required this.title,
     required this.image,
     required this.servings,
     required this.time,
     required this.docId,
-    required this.c,
+     required this.c,
   });
 
-  @override
-  State<RecipeCard> createState() => _RecipeCardState();
+  //@override
+ // State<FavRecipeCard> createState() => _FavRecipeCardState();
+//}
 
-}
+//class _FavRecipeCardState extends State<FavRecipeCard> {
 
-class _RecipeCardState extends State<RecipeCard> {
-  bool liked = false;
-  List<Recipes>? _recipesList;
-
+ // List<Recipes>? _recipesList;
 
   @override
   Widget build(BuildContext context) {
-
-    Wishlist_provider wishlist_provider = Provider.of(context);
+    bool liked = false;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
       width: MediaQuery.of(context).size.width,
@@ -62,52 +67,71 @@ class _RecipeCardState extends State<RecipeCard> {
             Colors.black.withOpacity(0.35),
             BlendMode.multiply,
           ),
-          image: NetworkImage(widget.image),
+          image: NetworkImage(image),
           fit: BoxFit.cover,
         ),
       ),
       child: Stack(
         children: [
 
-           // padding: const EdgeInsets.symmetric(horizontal: 330.0,vertical: 5),
-             Positioned(
-               top: 10,
-                right: 10,
-                child: InkWell(
-              child:
-                InkWell(
-                  onTap: (){
-                    setState(() {
-                      liked=!liked;
-                    });
-                    if(liked == true)
-                      {
-                        wishlist_provider.addWishlistData(
-                          wishlistservings: widget.servings,
-                          wishlisttime:  widget.time,
-                          wishlistimage: widget.image,
-                          wishlisttitle: widget.title,
-                        );
+          // padding: const EdgeInsets.symmetric(horizontal: 330.0,vertical: 5),
+          Positioned(
+              top: 10,
+              right: 10,
+                  child: StatefulBuilder(builder: (context,innerstate)
+                  {
+                    return InkWell(
+                      onTap: (){
+
+                          deleteFavorite();
 
 
+                      // innerstate(() {
+                      //   liked = !liked;
+                      // });
+                      // if(liked == true)
+                      // {
+                      //   // wishlist_provider.addWishlistData(
+                      //   //   wishlistservings: widget.servings,
+                      //   //   wishlisttime:  widget.time,
+                      //   //   wishlistimage: widget.image,
+                      //   //   wishlisttitle: widget.title,
+                      //
+                       // },
+                       // (context as Element).markNeedsBuild();
+                       //  if(liked == true && c==0)
+                       //    {
+                       //      createFavourite(Favs(
+                       //        image: image,
+                       //        time: time,
+                       //        servings: servings,
+                       //        title: title,
+                       //        id: docId,
+                       //
+                       //      ));
+                       //    }
+                       //  if(liked == false  && c>0)
+                       //    {
+                       //      deleteFavorite();
+                       //    }
+                     },
 
-                      }
-                  } ,
-                  child: Icon(
-                   liked ? FontAwesomeIcons.solidHeart  : FontAwesomeIcons.heart,
-                    color: Colors.white,
-                    size: 30,
-                  ),
+                      child: Icon(
+                        Icons.delete_outline_rounded,color: Colors.white,
+                        //liked ? Icons.favorite_border_rounded  : Icons.favorite_rounded,
+                        //color: Colors.white,
+                        size: 30,
+                      ),
 
-                )
+                    );
+                  }),
+          ),
 
-            )),
-
-          Align(
+           Align(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.0),
               child: Text(
-                widget.title,
+                title,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -140,7 +164,7 @@ class _RecipeCardState extends State<RecipeCard> {
                         size: 18,
                       ),
                       SizedBox(width: 7),
-                      Text(widget.servings.toString(),style: TextStyle(color: Colors.white),),
+                      Text(servings.toString(),style: TextStyle(color: Colors.white),),
                     ],
                   ),
                 ),
@@ -159,7 +183,7 @@ class _RecipeCardState extends State<RecipeCard> {
                         size: 18,
                       ),
                       SizedBox(width: 7),
-                      Text(widget.time.toString(),style: TextStyle(color: Colors.white),),
+                      Text(time.toString(),style: TextStyle(color: Colors.white),),
                       SizedBox(width: 3),
                       Text('min',style: TextStyle(color: Colors.white),)
                     ],
@@ -172,11 +196,25 @@ class _RecipeCardState extends State<RecipeCard> {
           ),
         ],
       ),
-
     );
 
 
 
   }
+  Future createFavourite(Favs favs) async{
+    final docFavs = FirebaseFirestore.instance.collection('favourites').doc();
+    favs.id = docFavs.id;
+    docId= favs.id;
+    final json = favs.toJson();
+    await docFavs.set(json);
+    c = c + 1;
+  }
 
+  void deleteFavorite() {
+    CollectionReference reference =
+    FirebaseFirestore.instance.collection("Favorites");
+    reference.doc(docId).delete();
+    print(docId);
+    c = c - 1;
+  }
 }

@@ -1,4 +1,3 @@
-
 class RecipeModel {
   RecipeModel({
     required this.recipes,
@@ -18,64 +17,64 @@ class RecipeModel {
 
 class Recipes {
   Recipes({
-    this.vegetarian,
-     this.vegan,
-     this.glutenFree,
-     this.dairyFree,
-     this.veryHealthy,
-     this.cheap,
-     this.veryPopular,
-     this.sustainable,
-     this.lowFodmap,
-     this.weightWatcherSmartPoints,
-     this.gaps,
-     this.preparationMinutes,
-     this.cookingMinutes,
-     this.aggregateLikes,
-     this.healthScore,
-     this.creditsText,
-    this.license,
-     this.sourceName,
-     this.pricePerServing,
-     this.extendedIngredients,
-     this.id,
+    required this.vegetarian,
+    required this.vegan,
+    required this.glutenFree,
+    required this.dairyFree,
+    required this.veryHealthy,
+    required this.cheap,
+    required this.veryPopular,
+    required this.sustainable,
+    required this.lowFodmap,
+    required this.weightWatcherSmartPoints,
+    required this.gaps,
+    required this.preparationMinutes,
+    required this.cookingMinutes,
+    required this.aggregateLikes,
+    required this.healthScore,
+    required this.creditsText,
+    required this.license,
+    required this.sourceName,
+    required this.pricePerServing,
+    required this.extendedIngredients,
+    required this.id,
     required this.title,
     required this.readyInMinutes,
     required this.servings,
-     this.sourceUrl,
+    required this.sourceUrl,
     required this.image,
-     this.imageType,
-     this.summary,
-     this.cuisines,
-    this.dishTypes,
-     this.diets,
-     this.occasions,
-     this.instructions,
-     this.analyzedInstructions,
+    required this.imageType,
+    required this.summary,
+    required this.cuisines,
+    required this.dishTypes,
+    required this.diets,
+    required this.occasions,
+    required this.instructions,
+    required this.analyzedInstructions,
     this.originalId,
-     this.spoonacularSourceUrl,
+    required this.spoonacularSourceUrl,
   });
-  late final bool? vegetarian;
-  late final bool? vegan;
-  late final bool? glutenFree;
-  late final bool? dairyFree;
-  late final bool? veryHealthy;
-  late final bool? cheap;
-  late final bool? veryPopular;
-  late final bool? sustainable;
-  late final bool? lowFodmap;
-  late final int? weightWatcherSmartPoints;
+  late final bool vegetarian;
+  late final bool vegan;
+  late final bool glutenFree;
+  late final bool dairyFree;
+  late final bool veryHealthy;
+  late final bool cheap;
+  late final bool veryPopular;
+  late final bool sustainable;
+  late final bool lowFodmap;
+  late final int weightWatcherSmartPoints;
   late final String? gaps;
-  late final int? preparationMinutes;
-  late final int? cookingMinutes;
-  late final int? aggregateLikes;
-  late final int? healthScore;
+  late final int preparationMinutes;
+  late final int cookingMinutes;
+  late final int aggregateLikes;
+  late final int healthScore;
   late final String? creditsText;
   late final String? license;
   late final String? sourceName;
-  late final double? pricePerServing;
-  late final List<ExtendedIngredients> ?extendedIngredients;
-  late final int? id;
+  late final double pricePerServing;
+  late final List<ExtendedIngredients> extendedIngredients;
+  late final int id;
   late final String? title;
   late final int readyInMinutes;
   late final int servings;
@@ -83,13 +82,13 @@ class Recipes {
   late final String? image;
   late final String? imageType;
   late final String? summary;
-  late final List<dynamic> ?cuisines;
-  late final List<String?> ?dishTypes;
-  late final List<String?> ?diets;
-  late final List<dynamic> ?occasions;
+  late final List<dynamic> cuisines;
+  late final List<String?> dishTypes;
+  late final List<String?> diets;
+  late final List<dynamic> occasions;
   late final String? instructions;
-  late final List<AnalyzedInstructions> ?analyzedInstructions;
-  late final Null ?originalId;
+  late final List<AnalyzedInstructions> analyzedInstructions;
+  late final Null originalId;
   late final String? spoonacularSourceUrl;
 
   Recipes.fromJson(Map<String?, dynamic> json){
@@ -152,7 +151,7 @@ class Recipes {
     _data['license'] = license;
     _data['sourceName'] = sourceName;
     _data['pricePerServing'] = pricePerServing;
-    _data['extendedIngredients'] = extendedIngredients?.map((e)=>e?.toJson()).toList();
+    _data['extendedIngredients'] = extendedIngredients.map((e)=>e.toJson()).toList();
     _data['id'] = id;
     _data['title'] = title;
     _data['readyInMinutes'] = readyInMinutes;
@@ -166,7 +165,7 @@ class Recipes {
     _data['diets'] = diets;
     _data['occasions'] = occasions;
     _data['instructions'] = instructions;
-    _data['analyzedInstructions'] = analyzedInstructions?.map((e)=>e.toJson()).toList();
+    _data['analyzedInstructions'] = analyzedInstructions.map((e)=>e.toJson()).toList();
     _data['originalId'] = originalId;
     _data['spoonacularSourceUrl'] = spoonacularSourceUrl;
     return _data;
@@ -412,5 +411,3 @@ class Equipment {
     return _data;
   }
 }
-
-  

@@ -170,6 +170,9 @@ class _home_pgState extends State<home_pg> {
                           image: recipe.image!,
                           servings: recipe.servings,
                           time: recipe.readyInMinutes,
+                          docId: '',
+                          c: 0,
+
                           //time: recipe.title!,
 
                         );

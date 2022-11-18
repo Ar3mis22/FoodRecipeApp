@@ -13,7 +13,7 @@ class ApiServices {
 
   getData(String? query) async {
     var responseBody;
-    var url = "https://api.spoonacular.com/recipes/random?apiKey=c08d42a1b0084d15b5e4c9fdb408351c&number=5";
+    var url = "https://api.spoonacular.com/recipes/random?apiKey=d76ff47cc5644a198dd9ab4cd6236086&number=5";
     http.Response response = await http.get(Uri.parse(url));
 
     try {

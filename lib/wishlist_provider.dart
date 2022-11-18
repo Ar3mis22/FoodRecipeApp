@@ -11,9 +11,10 @@ class Wishlist_provider with ChangeNotifier {
     required String wishlistimage,
     required int wishlisttime,
   }) async {
+    String id = DateTime.now().millisecondsSinceEpoch.toString();
     FirebaseFirestore.instance
         .collection('favourites')
-        .doc()
+        .doc(id)
         .set(
       {
         'title': wishlisttitle,
@@ -21,6 +22,7 @@ class Wishlist_provider with ChangeNotifier {
         'image': wishlistimage,
         'time': wishlisttime,
         'wishlist': true,
+        'id':id,
       },
     );
   }

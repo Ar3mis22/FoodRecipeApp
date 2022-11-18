@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_ui/models/RecipeModel.dart';
@@ -5,6 +6,8 @@ import 'package:login_ui/models/wishlistmodel.dart';
 import 'package:login_ui/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../FavRecipe_Card.dart';
+import '../Favs.dart';
 import '../SideBar/contact_us.dart';
 import '../SideBar/setting.dart';
 import '../Sign-in/google_sign_in.dart';
@@ -19,11 +22,11 @@ class Favourites extends StatefulWidget {
 }
 
 class _FavouritesState extends State<Favourites> {
-  late Wishlist_provider wishlist_provider;
+ // late Wishlist_provider wishlist_provider;
   @override
   Widget build(BuildContext context) {
-    wishlist_provider = Provider.of(context);
-    wishlist_provider.getWishlistData();
+    // wishlist_provider = Provider.of(context);
+    // wishlist_provider.getWishlistData();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepOrangeAccent,
@@ -106,48 +109,87 @@ class _FavouritesState extends State<Favourites> {
           ),
         ),
       ),
-       body:
-      SafeArea(
-        child: FutureBuilder(
-          future: wishlist_provider.getWishlistData(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    "Recipes",
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: wishlist_provider.getWishlist.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      WishlistModel data = wishlist_provider.getWishlist[index]  ;
-                      return RecipeCard(
-                        title: data.wishlisttitle,
-                        image: data.wishlistimage,
-                        servings: data.wishlistservings,
-                        time: data.wishlisttime,
-                      );
-                    },
-                  ),
-                )
-              ],
+      body: StreamBuilder<List<Favs>>(
+        stream: readFavourites(),
+        builder: (context, snapshot){
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Error occured!"),
             );
-          },
-        ),
+          } else if (snapshot.hasData) {
+            final favs = snapshot.data!;
+            return ListView(
+              children: favs.map(buildFavs).toList(),
+            );
+          } else if (!snapshot.hasData) {
+            return Center(
+              child: Text("You have no favorites as of yet!"),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+        }
       ),
 
+      // SafeArea(
+      //   child: FutureBuilder(
+      //     future: wishlist_provider.getWishlistData(),
+      //     builder: (context, snapshot) {
+      //       if (snapshot.connectionState == ConnectionState.waiting) {
+      //         return Center(
+      //           child: CircularProgressIndicator(),
+      //         );
+      //       }
+      //       return Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         mainAxisSize: MainAxisSize.max,
+      //         children: [
+      //           Padding(
+      //             padding: const EdgeInsets.all(15.0),
+      //             child: Text(
+      //               "Recipes",
+      //               style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+      //             ),
+      //           ),
+      //           Expanded(
+      //             child: ListView.builder(
+      //               shrinkWrap: true,
+      //               itemCount: wishlist_provider.getWishlist.length,
+      //               itemBuilder: (BuildContext context, int index) {
+      //                 WishlistModel data = wishlist_provider.getWishlist[index]  ;
+      //                 return RecipeCard(
+      //                   title: data.wishlisttitle,
+      //                   image: data.wishlistimage,
+      //                   servings: data.wishlistservings,
+      //                   time: data.wishlisttime,
+      //                 );
+      //               },
+      //             ),
+      //           )
+      //         ],
+      //       );
+      //     },
+      //   ),
+      // ),
+
     );
+    
   }
 }
+Widget buildFavs(Favs favs) {
+  return FavRecipeCard(
+    title: favs.title!,
+    image: favs.image!,
+    time: favs.time!,
+    servings: favs.servings!,
+     docId: favs.id,
+     c: 1,
+
+  );
+}
+Stream<List<Favs>> readFavourites() => FirebaseFirestore.instance.collection('favourites')
+    .snapshots().map((snapshot) =>
+    snapshot.docs.map((doc) =>Favs.fromJson(doc.data())).toList());
