@@ -10,9 +10,11 @@ class Wishlist_provider with ChangeNotifier {
     required int wishlistservings,
     required String wishlistimage,
     required int wishlisttime,
+    required String wishlistsummary,
   }) async {
     String id = DateTime.now().millisecondsSinceEpoch.toString();
-    FirebaseFirestore.instance
+    var firebaseUser = await FirebaseAuth.instance.currentUser!;
+    FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid)
         .collection('favourites')
         .doc(id)
         .set(
@@ -23,31 +25,32 @@ class Wishlist_provider with ChangeNotifier {
         'time': wishlisttime,
         'wishlist': true,
         'id':id,
+        'summary': wishlistsummary,
       },
     );
   }
- List<WishlistModel> wishlist = [];
-  getWishlistData() async {
-    List<WishlistModel> newlist = [];
-    QuerySnapshot value = (await FirebaseFirestore.instance
-        .collection('favourites')
-        .doc()
-        .get()) as QuerySnapshot<Object?>;
-    value.docs.forEach((element) {
-      WishlistModel wishlistModel = WishlistModel(
-
-            wishlisttitle: element.get("wishlisttitle"),
-            wishlisttime: element.get("wishlisttime"),
-            wishlistservings: element.get("wishlistservings"),
-            wishlistimage: element.get("wishlistimage"),
-
-      );
-      newlist.add(wishlistModel);
-    });
-    wishlist = newlist;
-    notifyListeners();
-  }
-   List<WishlistModel> get getWishlist{
-    return wishlist;
-  }
+  //List<WishlistModel> wishlist = [];
+  // getWishlistData() async {
+  //   List<WishlistModel> newlist = [];
+  //   QuerySnapshot value = (await FirebaseFirestore.instance
+  //       .collection('favourites')
+  //       .doc()
+  //       .get()) as QuerySnapshot<Object?>;
+  //   value.docs.forEach((element) {
+  //     WishlistModel wishlistModel = WishlistModel(
+  //
+  //       wishlisttitle: element.get("wishlisttitle"),
+  //       wishlisttime: element.get("wishlisttime"),
+  //       wishlistservings: element.get("wishlistservings"),
+  //       wishlistimage: element.get("wishlistimage"),
+  //
+  //     );
+  //     newlist.add(wishlistModel);
+  //   });
+  //   wishlist = newlist;
+  //   notifyListeners();
+  // }
+  // List<WishlistModel> get getWishlist{
+  //   return wishlist;
+  // }
 }

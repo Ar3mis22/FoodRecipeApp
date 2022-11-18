@@ -81,7 +81,7 @@ class Recipes {
   late final String? sourceUrl;
   late final String? image;
   late final String? imageType;
-  late final String? summary;
+  late final String summary;
   late final List<dynamic> cuisines;
   late final List<String?> dishTypes;
   late final List<String?> diets;

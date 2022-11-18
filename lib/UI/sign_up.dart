@@ -60,204 +60,209 @@ class _sign_upState extends State<sign_up> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black12,
-      appBar: AppBar(
-        title: Text(
-          'Register Yourself',
-          style: TextStyle(color: Colors.white),
-        ),
-        shadowColor: Colors.black,
-        backgroundColor: Colors.deepOrangeAccent,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage('assets/register1.jpg'),fit:BoxFit.cover )
       ),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0.0, 10.0, 100.0, 0.0),
-            child: const Text(
-              'Welcome to the',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 62.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(
+            'Register Yourself',
+            style: TextStyle(color: Colors.white),
           ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 180.0),
+          shadowColor: Colors.black,
+          backgroundColor: Colors.deepOrangeAccent,
+        ),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(0.0, 10.0, 100.0, 0.0),
               child: const Text(
-                'Family!',
+                'Welcome to the',
                 style: TextStyle(
-                  color: Colors.deepOrangeAccent,
+                  color: Colors.white,
                   fontSize: 62.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 120.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-            child: Container(
-
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.deepOrangeAccent),
-              ),
-              child: TextFormField(
-                  controller: usernameController,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: ' Username',
-                      hintStyle: TextStyle(
-                        letterSpacing: 2.0,
-                        fontSize: 20,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.person_rounded,
-                        color: Colors.deepOrangeAccent,
-                      ))),
-            ),
-          ),
-          // SizedBox(
-          //   height: 120.0,
-          // ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 13.0, 20.0, 0.0),
-            child: Container(
-
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.deepOrangeAccent),
-              ),
-              child: TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: ' Email',
-                      hintStyle: TextStyle(
-                        letterSpacing: 2.0,
-                        fontSize: 20,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Colors.deepOrangeAccent,
-                      ))),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                border: Border.all(color: Colors.deepOrangeAccent),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  obscuringCharacter: '*',
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: ' Password',
-                      hintStyle: TextStyle(
-                        letterSpacing: 2.0,
-                        fontSize: 20,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.lock_outline_sharp,
-                        color: Colors.deepOrangeAccent,
-                      ))),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                border: Border.all(color: Colors.deepOrangeAccent),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextFormField(
-                  controller: phoneController,
-                  keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Phone_no.',
-                      hintStyle: TextStyle(
-                        letterSpacing: 2.0,
-                        fontSize: 20,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.phone,
-                        color: Colors.deepOrangeAccent,
-                      ))),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                border: Border.all(color: Colors.deepOrangeAccent),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextFormField(
-                  controller: favouritesController,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Favourites',
-                      hintStyle: TextStyle(
-                        letterSpacing: 2.0,
-                        fontSize: 20,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.pets_rounded,
-                        color: Colors.deepOrangeAccent,
-                      ))),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),
-            child: Container(
-              height: 40,
-              width: 500,
-              decoration: BoxDecoration(
-                  color: Colors.deepOrangeAccent,
-                  borderRadius: BorderRadius.circular(12.0)),
-              child: FlatButton(
-                onPressed: () {
-                  signUp();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-                child: Text(
-                  'Register',
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 180.0),
+                child: const Text(
+                  'Family!',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.deepOrangeAccent,
+                    fontSize: 62.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-          )
-        ]),
+            SizedBox(
+              height: 120.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+              child: Container(
+
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.deepOrangeAccent),
+                ),
+                child: TextFormField(
+                    controller: usernameController,
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ' Username',
+                        hintStyle: TextStyle(
+                          letterSpacing: 2.0,
+                          fontSize: 20,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.person_rounded,
+                          color: Colors.deepOrangeAccent,
+                        ))),
+              ),
+            ),
+            // SizedBox(
+            //   height: 120.0,
+            // ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 13.0, 20.0, 0.0),
+              child: Container(
+
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.deepOrangeAccent),
+                ),
+                child: TextFormField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ' Email',
+                        hintStyle: TextStyle(
+                          letterSpacing: 2.0,
+                          fontSize: 20,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Colors.deepOrangeAccent,
+                        ))),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  border: Border.all(color: Colors.deepOrangeAccent),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    obscuringCharacter: '*',
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: ' Password',
+                        hintStyle: TextStyle(
+                          letterSpacing: 2.0,
+                          fontSize: 20,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.lock_outline_sharp,
+                          color: Colors.deepOrangeAccent,
+                        ))),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  border: Border.all(color: Colors.deepOrangeAccent),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextFormField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Phone_no.',
+                        hintStyle: TextStyle(
+                          letterSpacing: 2.0,
+                          fontSize: 20,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.phone,
+                          color: Colors.deepOrangeAccent,
+                        ))),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  border: Border.all(color: Colors.deepOrangeAccent),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextFormField(
+                    controller: favouritesController,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Favourites',
+                        hintStyle: TextStyle(
+                          letterSpacing: 2.0,
+                          fontSize: 20,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.restaurant_menu,
+                          color: Colors.deepOrangeAccent,
+                        ))),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),
+              child: Container(
+                height: 40,
+                width: 500,
+                decoration: BoxDecoration(
+                    color: Colors.deepOrangeAccent,
+                    borderRadius: BorderRadius.circular(12.0)),
+                child: FlatButton(
+                  onPressed: () {
+                    signUp();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Text(
+                    'Register',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ]),
+        ),
       ),
     );
   }

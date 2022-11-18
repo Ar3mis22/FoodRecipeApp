@@ -49,6 +49,9 @@ dependencies:
   lottie:
   http: 0.13.5
   flutter_neumorphic: ^3.2.0
+  pinput: ^2.2.16
+  form_validator: ^1.0.4
+
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +79,23 @@ flutter:
   assets:
       - background.jpg
       - support.png
+      - contactus.jpg
+      - img.jpg
+      - indian.jpg
+      - chinese.jpeg
+      - french.jpg
+      - italian.png
+      - japanese.jpg
+      - mexican.jpg
+      - thai.jpeg
+      - register1.jpg
+      - google1.png
+      - phone.png
+      - otp2.png
+      - otp3.png
+      - back1.jpg
+      - wasabibeans.jpg
+      - profileback.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

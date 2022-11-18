@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/BottomNav/cousines.dart';
+import 'package:login_ui/BottomNav/cuisines.dart';
 import 'package:login_ui/BottomNav/favourites.dart';
 import 'package:login_ui/BottomNav/home_pg.dart';
 import 'package:login_ui/BottomNav/welcome_page.dart';
@@ -61,7 +61,7 @@ class _Nav_barState extends State<Nav_bar> {
                 destinations: [
                   NavigationDestination(icon: Icon(Icons.home_filled,color: Colors.deepOrangeAccent,), label: 'Home',),
                   NavigationDestination(icon: Icon(Icons.favorite_rounded,color: Colors.deepOrangeAccent,), label: 'Favourites'),
-                  NavigationDestination(icon: Icon(Icons.fastfood_rounded,color: Colors.deepOrangeAccent,), label: 'Cousines'),
+                  NavigationDestination(icon: Icon(Icons.fastfood_rounded,color: Colors.deepOrangeAccent,), label: 'Cuisines'),
                   NavigationDestination(icon: Icon(Icons.person_rounded,color: Colors.deepOrangeAccent,), label: 'Profile'),
                 ],
 

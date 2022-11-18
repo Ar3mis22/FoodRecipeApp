@@ -6,6 +6,7 @@ class WishlistModel{
    late int wishlistservings;
    late String wishlistimage;
    late int wishlisttime;
+   late String wishlistsummary;
 
 
    WishlistModel({
@@ -13,6 +14,7 @@ class WishlistModel{
       required this.wishlistservings,
       required this.wishlistimage,
       required this.wishlisttime,
+      required this.wishlistsummary,
 
 });
 
