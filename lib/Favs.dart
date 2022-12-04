@@ -6,13 +6,15 @@ class Favs{
    int? time;
    int? servings;
   String? image;
+  String? summary;
 
   Favs({
-    required this.id ,
+   required this.id ,
     required this.title,
     required this.time,
     required this.servings,
     required this.image,
+    required this.summary,
   });
 
 
@@ -23,6 +25,7 @@ class Favs{
     'servings':servings,
     'time':time,
     'image': image,
+    'summary': summary,
 
 
   };
@@ -33,6 +36,7 @@ class Favs{
     servings:json["servings"],
     image: json['image'],
     id: json['id'],
+    summary: json['summary']
 
   );
 

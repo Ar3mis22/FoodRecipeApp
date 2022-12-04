@@ -60,7 +60,7 @@ class SearchRecipes extends SearchDelegate{
                       time: recipe.readyInMinutes,
                       c: 0,
                       docId: '',
-                      //time: recipe.title!,
+                      summary: recipe.summary,
 
                     );
                   },
@@ -123,6 +123,7 @@ class SearchRecipes extends SearchDelegate{
                       time: recipe.readyInMinutes,
                       c: 0,
                       docId: '',
+                      summary: removeAllHtmlTags(recipe.summary),
                       //time: recipe.title!,
 
                     );
@@ -139,5 +140,10 @@ class SearchRecipes extends SearchDelegate{
   getRecipeData({required String? query}) async {
     _recipesList = await ApiServices().getData(query);
     print(_recipesList!.length);
+  }
+
+  removeAllHtmlTags(String? htmlText) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    return htmlText?.replaceAll(exp, '');
   }
 }

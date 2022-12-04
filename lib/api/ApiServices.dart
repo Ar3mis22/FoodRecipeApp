@@ -8,6 +8,7 @@ class ApiServices {
   String? title;
   String? imgUrl;
   bool? isVeg;
+  String? summary;
   RecipeModel? recipeModel;
   List<Recipes> _recipesList= [];
 
@@ -23,6 +24,8 @@ class ApiServices {
         title = responseBody['recipes'][0]['title'];
         imgUrl = responseBody['recipes'][0]['image'];
         isVeg = responseBody['recipes'][0]['vegetarian'];
+        summary = responseBody['recipes'][0]['summary'];
+
         // debugPrint(title);
         // debugPrint(imgUrl);
         // debugPrint(isVeg.toString());
