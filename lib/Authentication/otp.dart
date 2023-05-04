@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/phone.dart';
+import 'package:login_ui/Authentication/phone.dart';
 import 'package:pinput/pinput.dart';
 
 class otp extends StatefulWidget {
@@ -94,6 +94,6 @@ class _otpState extends State<otp> {
           ],
         ),
       ),
-    );;
+    );
   }
 }

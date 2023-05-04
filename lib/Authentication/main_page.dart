@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_ui/BottomNav/home_pg.dart';
 import 'package:login_ui/BottomNav/nav_bar.dart';
-import 'package:login_ui/Sign-in/login_page.dart';
+import 'package:login_ui/Authentication/login_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);

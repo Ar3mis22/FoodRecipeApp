@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:login_ui/wishlist_provider.dart';
+import 'package:login_ui/Screens/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../Favs.dart';
-import '../RecipeInfo.dart';
+import '../Screens/Favs.dart';
+import '../Screens/RecipeInfo.dart';
 import 'RecipeModel.dart';
 
 class RecipeCard extends StatefulWidget {
@@ -14,7 +15,7 @@ class RecipeCard extends StatefulWidget {
   final int servings;
   final String image;
   final int time;
-  late final String docId;
+   String docId;
    String summary;
   int c;
   RecipeCard({
@@ -50,7 +51,9 @@ class _RecipeCardState extends State<RecipeCard> {
                 image: widget.image,
                 time: widget.time,
                 summary: widget.summary,
-                servings: widget.servings,
+                servings: widget.servings, 
+                docId: widget.docId,
+                c: widget.c,
               )
           )
           );
@@ -99,19 +102,21 @@ class _RecipeCardState extends State<RecipeCard> {
                           liked=!liked;
                         }
                         );
-                        //liked=!liked;
-                        if(liked == true)
+                        if(liked == true && widget.c==0)
                         {
-                          wishlist_provider.addWishlistData(
-                            wishlistservings: widget.servings,
-                            wishlisttime:  widget.time,
-                            wishlistimage: widget.image,
-                            wishlisttitle: widget.title,
-                            wishlistsummary: widget.summary,
-                          );
+                          createFavourite(Favs(
+                            image: widget.image,
+                            time: widget.time,
+                            servings: widget.servings,
+                            title: widget.title,
+                            id: widget.docId,
+                            summary: widget.summary,
 
-
-
+                          ));
+                        }
+                        if(liked == false  && widget.c>0)
+                        {
+                          deleteFavorite();
                         }
                       } ,
                       child: Icon(
@@ -200,6 +205,25 @@ class _RecipeCardState extends State<RecipeCard> {
 
 
 
+  }
+  Future createFavourite(Favs favs) async{
+    var firebaseUser = await FirebaseAuth.instance.currentUser!;
+    final docFavs = FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).collection('favourites').doc();
+    favs.id = docFavs.id;
+    widget.docId= favs.id;
+    final json = favs.toJson();
+    await docFavs.set(json);
+    widget.c = widget.c + 1;
+  }
+
+  Future<void> deleteFavorite() async {
+    var firebaseUser = await FirebaseAuth.instance.currentUser!;
+    CollectionReference reference =
+    FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid)
+        .collection('favourites');
+    reference.doc(widget.docId).delete();
+    print(widget.docId);
+    widget.c = widget.c - 1;
   }
 
 

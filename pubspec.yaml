@@ -51,6 +51,8 @@ dependencies:
   flutter_neumorphic: ^3.2.0
   pinput: ^2.2.16
   form_validator: ^1.0.4
+  firebase_core: ^2.4.1
+  intl_phone_field: ^3.1.0
 
 
 dev_dependencies:
@@ -77,25 +79,26 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - background.jpg
-      - support.png
-      - contactus.jpg
-      - img.jpg
-      - indian.jpg
-      - chinese.jpeg
-      - french.jpg
-      - italian.png
-      - japanese.jpg
-      - mexican.jpg
-      - thai.jpeg
-      - register1.jpg
-      - google1.png
-      - phone.png
-      - otp2.png
-      - otp3.png
-      - back1.jpg
-      - wasabibeans.jpg
-      - profileback.png
+      - assets/background.jpg
+      - assets/support.png
+      - assets/contactus.jpg
+      - assets/img.jpg
+      - assets/indian.jpg
+      - assets/chinese.jpeg
+      - assets/french.jpg
+      - assets/italian.png
+      - assets/japanese.jpg
+      - assets/mexican.jpg
+      - assets/thai.jpeg
+      - assets/register1.jpg
+      - assets/google1.png
+      - assets/phone.png
+      - assets/otp2.png
+      - assets/otp3.png
+      - assets/back1.jpg
+      - assets/wasabibeans.jpg
+      - assets/profileback.png
+      - assets/otp.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

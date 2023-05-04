@@ -1,11 +1,12 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:http/http.dart';
-import 'package:login_ui/Username.dart';
+import 'package:login_ui/Screens/Username.dart';
 import 'package:login_ui/api/ApiServices.dart';
 import 'package:login_ui/models/SearchRecipes.dart';
 //import 'package:login_ui/recipeApi.dart';
@@ -14,8 +15,8 @@ import '../models/RecipeModel.dart';
 import '../SideBar/contact_us.dart';
 import '../SideBar/setting.dart';
 import '../api/constants.dart';
-import '../Sign-in/google_sign_in.dart';
-import '../Sign-in/login_page.dart';
+import '../Authentication/google_sign_in.dart';
+import '../Authentication/login_page.dart';
 import '../models/recipe_card.dart';
 
 
@@ -53,163 +54,143 @@ class _home_pgState extends State<home_pg> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          final shouldPop = await showMyDialog();
-          return shouldPop ?? false;
-        },
-      child: Scaffold(
-          drawer: Drawer(
-            child: Material(
-              color: Colors.black12,
-              child: ListView(
-                children: [
-                  Container(
-                    height: 70,
-                    color: Colors.deepOrangeAccent,
-                    child: Center(
-                        child: Text('Foodies',
-                          style: TextStyle(
-                              fontSize: 42,
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              //fontFamily: 'Dancingscript'
-                          ),
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  Column(
-                    children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 18.0,),
-                      //   child: ListTile(
-                      //     leading: Icon(Icons.settings,color: Colors.black,size: 35,),
-                      //     title: Text('Settings',
-                      //       style: TextStyle(
-                      //           color: Colors.black,
-                      //           fontSize: 20),
-                      //     ),
-                      //     onTap: (){
-                      //       //Navigator.push(context, MaterialPageRoute(builder: (context)=> Setting()));
-                      //     },
-                      //   ),
-                      // ),
-                      //SizedBox(height: 10.0,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18.0,),
-                        child: ListTile(
-                          leading: //Image.asset('assets/support.png',color: Colors.black,scale: 15,)
-                          Icon(Icons.phone,color: Colors.black,),
-                          title: Text('Contact us',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20),
-                          ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> Contact_us()));
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18.0,),
-                        child: ListTile(
-                          leading: Icon(Icons.logout_rounded,color: Colors.black,size: 35,),
-                          title: Text('Log-out',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20),
-                          ),
-                          onTap: (){
-                            final provider = Provider.of<GoogleSignInProvider>(context,listen: false);
-                            provider.logout();
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
-                          },
+    return Scaffold(
+        drawer: Drawer(
+          child: Material(
+            color: Colors.black12,
+            child: ListView(
+              children: [
+                Container(
+                  height: 70,
+                  color: Colors.deepOrangeAccent,
+                  child: Center(
+                      child: Text('Foodies',
+                        style: TextStyle(
+                            fontSize: 42,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            //fontFamily: 'Dancingscript'
                         ),
                       )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          appBar: AppBar(
-            backgroundColor: Colors.deepOrangeAccent,
-            title: Text("Recipes",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            actions: [
-              IconButton(onPressed: (){
-                showSearch(context: context, delegate: SearchRecipes());
-              },
-                  icon: Icon(Icons.search_rounded))
-            ],
-          ),
-          body: SafeArea(
-            child: FutureBuilder(
-              future: getRecipeData(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Column(
                   children: [
                     // Padding(
-                    //   padding: const EdgeInsets.all(15.0),
-                    //   child: Text(
-                    //     "Recipes",
-                    //     style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+                    //   padding: const EdgeInsets.symmetric(horizontal: 18.0,),
+                    //   child: ListTile(
+                    //     leading: Icon(Icons.settings,color: Colors.black,size: 35,),
+                    //     title: Text('Settings',
+                    //       style: TextStyle(
+                    //           color: Colors.black,
+                    //           fontSize: 20),
+                    //     ),
+                    //     onTap: (){
+                    //       //Navigator.push(context, MaterialPageRoute(builder: (context)=> Setting()));
+                    //     },
                     //   ),
                     // ),
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _recipesList!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          Recipes recipe = _recipesList![index];
-                          return RecipeCard(
-                            title: recipe.title!,
-                            image: recipe.image!,
-                            servings: recipe.servings,
-                            time: recipe.readyInMinutes,
-                            docId: '',
-                            c: 0,
-                            summary: recipe.summary,
-
-                          );
+                    //SizedBox(height: 10.0,),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0,),
+                      child: ListTile(
+                        leading: //Image.asset('assets/support.png',color: Colors.black,scale: 15,)
+                        Icon(Icons.phone,color: Colors.black,),
+                        title: Text('Contact us',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20),
+                        ),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Contact_us()));
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0,),
+                      child: ListTile(
+                        leading: Icon(Icons.logout_rounded,color: Colors.black,size: 35,),
+                        title: Text('Log-out',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20),
+                        ),
+                        onTap: () async{
+                          final provider = Provider.of<GoogleSignInProvider>(context,listen: false);
+                          provider.logout();
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
                         },
                       ),
                     )
                   ],
-                );
-              },
+                )
+              ],
             ),
           ),
-      ),
+        ),
+        appBar: AppBar(
+          backgroundColor: Colors.deepOrangeAccent,
+          title: Text("Recipes",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          actions: [
+            IconButton(onPressed: (){
+              showSearch(context: context, delegate: SearchRecipes());
+            },
+                icon: Icon(Icons.search_rounded))
+          ],
+        ),
+        body: SafeArea(
+          child: FutureBuilder(
+            future: getRecipeData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  // Padding(
+                  //   padding: const EdgeInsets.all(15.0),
+                  //   child: Text(
+                  //     "Recipes",
+                  //     style: TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+                  //   ),
+                  // ),
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _recipesList!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Recipes recipe = _recipesList![index];
+                        return RecipeCard(
+                          title: recipe.title!,
+                          image: recipe.image!,
+                          servings: recipe.servings,
+                          time: recipe.readyInMinutes,
+                          docId: '',
+                          c: 0,
+                          summary: recipe.summary,
+
+                        );
+                      },
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
+        ),
     );
   }
 
-  Future<bool?> showMyDialog() => showDialog<bool>(
-      context : context,
-      builder: (context) => AlertDialog(
-        title: Text('Do you want to Log-Out?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context,false), child: Text('Cancel')),
-          TextButton(onPressed: () {
-            final provider = Provider.of<GoogleSignInProvider>(context,listen: false);
-            provider.logout();
-            Navigator.pop(context,true);
-            }, child: Text('Yes')),
-        ],
-      )
-
-  );
 }
 
 // class RecipeWidget extends StatelessWidget {

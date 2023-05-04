@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:login_ui/wishlist_provider.dart';
+import 'package:login_ui/Screens/wishlist_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'Favs.dart';
 
 
 class RecipeInfo extends StatefulWidget {
@@ -10,13 +14,17 @@ class RecipeInfo extends StatefulWidget {
   String image;
   int time;
   int servings;
+  String docId;
+  int c;
   RecipeInfo(
       {Key? key,
         required this.title,
         required this.image,
         required this.time,
         required this.summary,
-        required this.servings})
+        required this.servings,
+        required this.docId,
+      required this.c})
       : super(key: key);
 
   @override
@@ -48,16 +56,21 @@ class _RecipeInfoState extends State<RecipeInfo> {
               }
               );
               //liked=!liked;
-              if(liked == true)
+              if(liked == true && widget.c==0)
               {
-                wishlist_provider.addWishlistData(
-                  wishlistservings: widget.servings,
-                  wishlisttime:  widget.time,
-                  wishlistimage: widget.image,
-                  wishlisttitle: widget.title,
-                  wishlistsummary: widget.summary,
-                );
+                createFavourite(Favs(
+                  image: widget.image,
+                  time: widget.time,
+                  servings: widget.servings,
+                  title: widget.title,
+                  id: widget.docId,
+                  summary: widget.summary,
 
+                ));
+              }
+              if(liked == false  && widget.c>0)
+              {
+                deleteFavorite();
               }
             },
           )
@@ -107,5 +120,24 @@ class _RecipeInfoState extends State<RecipeInfo> {
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>",multiLine: true,caseSensitive: true);
     return htmlText.replaceAll(exp, '');
+  }
+  Future createFavourite(Favs favs) async{
+    var firebaseUser = await FirebaseAuth.instance.currentUser!;
+    final docFavs = FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).collection('favourites').doc();
+    favs.id = docFavs.id;
+    widget.docId= favs.id;
+    final json = favs.toJson();
+    await docFavs.set(json);
+    widget.c = widget.c + 1;
+  }
+
+  Future<void> deleteFavorite() async {
+    var firebaseUser = await FirebaseAuth.instance.currentUser!;
+    CollectionReference reference =
+    FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid)
+        .collection('favourites');
+    reference.doc(widget.docId).delete();
+    print(widget.docId);
+    widget.c = widget.c - 1;
   }
 }

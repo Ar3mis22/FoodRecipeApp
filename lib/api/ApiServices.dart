@@ -14,7 +14,7 @@ class ApiServices {
 
   getData(String? query) async {
     var responseBody;
-    var url = "https://api.spoonacular.com/recipes/random?apiKey=d76ff47cc5644a198dd9ab4cd6236086&number=5";
+    var url = "https://api.spoonacular.com/recipes/random?apiKey=d76ff47cc5644a198dd9ab4cd6236086&number=10";
     http.Response response = await http.get(Uri.parse(url));
 
     try {
@@ -33,7 +33,7 @@ class ApiServices {
         _recipesList = recipesMain.recipes;
         if(query != null)
           {
-            _recipesList = _recipesList!.where((element) => element.title!.toLowerCase().contains(query.toLowerCase())).toList();
+            _recipesList = _recipesList.where((element) => element.title!.toLowerCase().contains(query.toLowerCase())).toList();
           }
       } else {
         print(response.statusCode);

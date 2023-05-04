@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:login_ui/Sign-in/google_sign_in.dart';
-import 'package:login_ui/Sign-in/main_page.dart';
-import 'package:login_ui/UI/splashscreen.dart';
-import 'package:login_ui/wishlist_provider.dart';
+import 'package:login_ui/Authentication/google_sign_in.dart';
+import 'package:login_ui/Authentication/main_page.dart';
+
+import 'package:login_ui/Screens/wishlist_provider.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'Sign-in/login_page.dart';
+import 'Authentication/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lottie/lottie.dart';
 Future main() async{
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
           primarySwatch: Colors.blue,
         ),
-        home: Splash()
+        home: MainPage()
       ),
     );
   }

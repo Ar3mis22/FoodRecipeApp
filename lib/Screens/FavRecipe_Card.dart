@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'FavRecipeInfo.dart';
 import 'Favs.dart';
 
 
@@ -10,14 +11,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:login_ui/wishlist_provider.dart';
+import 'package:login_ui/Screens/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
 //import 'RecipeModel.dart';
 import 'Favs.dart';
 import 'RecipeInfo.dart';
-import 'api/ApiServices.dart';
-import 'models/RecipeModel.dart';
+import '../api/ApiServices.dart';
+import '../models/RecipeModel.dart';
 
 class FavRecipeCard extends StatelessWidget {
   String title;
@@ -48,16 +49,19 @@ class FavRecipeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //bool liked = false;
+    bool liked = true;
     return GestureDetector(
       onTap: (){
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => RecipeInfo(
+            builder: (context) => FavRecipeInfo(
               title: title,
               image: image,
               time: time,
               summary: summary.toString(),
-              servings: servings,
+              servings: servings, c: c,
+              docId: docId,
+              liked: true,
+
             )
         )
         );
@@ -117,7 +121,7 @@ class FavRecipeCard extends StatelessWidget {
                     //   //   wishlisttitle: widget.title,
                     //
                     // },
-                    // (context as Element).markNeedsBuild();
+                    //(context as Element).markNeedsBuild();
                     //  if(liked == true && c==0)
                     //    {
                     //      createFavourite(Favs(
@@ -126,6 +130,7 @@ class FavRecipeCard extends StatelessWidget {
                     //        servings: servings,
                     //        title: title,
                     //        id: docId,
+                    //        summary: summary,
                     //
                     //      ));
                     //    }
@@ -222,7 +227,8 @@ class FavRecipeCard extends StatelessWidget {
 
   }
   Future createFavourite(Favs favs) async{
-    final docFavs = FirebaseFirestore.instance.collection('favourites').doc();
+    var firebaseUser = await FirebaseAuth.instance.currentUser!;
+    final docFavs = FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).collection('favourites').doc();
     favs.id = docFavs.id;
     docId= favs.id;
     final json = favs.toJson();
@@ -233,7 +239,7 @@ class FavRecipeCard extends StatelessWidget {
   Future<void> deleteFavorite() async {
     var firebaseUser = await FirebaseAuth.instance.currentUser!;
     CollectionReference reference =
-    FirebaseFirestore.instance.collection("users").doc(firebaseUser.uid)
+    FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid)
     .collection('favourites');
     reference.doc(docId).delete();
     print(docId);

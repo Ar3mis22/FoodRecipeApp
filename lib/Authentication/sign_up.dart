@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/Sign-in/login_page.dart';
+import 'package:login_ui/Authentication/login_page.dart';
 
 class sign_up extends StatefulWidget {
   const sign_up({Key? key}) : super(key: key);
@@ -67,6 +67,15 @@ class _sign_upState extends State<sign_up> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginPage()));
+            },
+          ),
           title: Text(
             'Register Yourself',
             style: TextStyle(color: Colors.white),
@@ -246,7 +255,7 @@ class _sign_upState extends State<sign_up> {
                 decoration: BoxDecoration(
                     color: Colors.deepOrangeAccent,
                     borderRadius: BorderRadius.circular(12.0)),
-                child: FlatButton(
+                  child: ElevatedButton(
                   onPressed: () {
                     signUp();
                     Navigator.push(context,

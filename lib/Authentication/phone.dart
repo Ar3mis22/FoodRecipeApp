@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/otp.dart';
+import 'package:login_ui/Authentication/otp.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:form_validator/form_validator.dart';
 
